@@ -1,0 +1,39 @@
+<!-- views/login.ejs -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" href="../signup.css">
+  </head>
+  <body>
+    <%-include("navbar") %>
+    
+    <div class="content">
+      <form id="form" action="/user/login" method="POST">
+        <div class="field">
+          <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
+        </div>
+        <div class="field">
+          <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required      
+            />
+        </div>
+          
+            
+            <button type="submit" id="btn">Login</button>
+        
+      </form>
+    </div>
+  
+  </body>
+</html>

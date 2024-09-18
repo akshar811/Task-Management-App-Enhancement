@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        div{
+            cursor: pointer;
+        }
+    </style>
+  </head>
+  <body>
+    <%-include("navbar") %>
+
+
+    <div id="box"></div>
+
+    <script>
+      const DeleteTask = (id) => {
+        fetch(`/product/DeleteTask/${id}`, {
+          method: "delete",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            redirect("/user/User");
+          })
+          .catch((error) => console.log(error));
+      };
+
+      fetch("/product/AdminTaskDisplay")
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+          display(data);
+        });
+
+      const display = (data) => {
+        document.getElementById("box").innerHTML = "";
+        data.map((ele) => {
+          console.log(data);
+          let title = document.createElement("h1");
+          title.innerHTML = `Title : ${ele.title}`;
+          let des = document.createElement("h4");
+          des.innerHTML = `desc : ${ele.des}`;
+          
+          let div = document.createElement("div");
+          div.setAttribute("class","new");
+          div.append(title, des,);
+          document.getElementById("box").append(div);
+
+          div.addEventListener("click",()=>{
+            window.location.href = `/product/singleTask/${ele._id}`;
+          })
+        });
+      };
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>update page</title>
+    <link rel="stylesheet" href="../style.css">
+
+  </head>
+
+  <body>
+      <%- include("navbar") %>
+
+   <div class="content">
+
+    <h2 class="text">Update Form</h2> <br>
+
+    <form action="/product/updateTask" method="post">
+
+      <div class="field">  
+        <input type="text" name="title" id="title" placeholder="Title"  />
+      </div> <br> 
+      <div class="field">
+        <input type="text" name="des" id="des" placeholder="description"  />
+      </div> <br>
+      <div class="field">
+         <input type="text" name="category" id="category" placeholder="category" />
+        </div> <br>
+      <div class="field"> 
+        <input type="text" id="id" name="_id">
+      </div> <br>
+          
+        <input type="submit" id="submit"/>
+      
+    </form>
+
+   </div>
+       
+    <div class="search">
+      <input type="search" id="searchInput" placeholder="Enter category" />
+    <button id="searchButton">Search</button>
+    </div>
+
+    <div id="box"></div>
+
+    <script>
+      const searchButton = document.getElementById("searchButton");
+
+      // Event listener for search button
+      searchButton.addEventListener("click", () => {
+        const searchQuery = document.getElementById("searchInput").value;
+        fetchTasks(searchQuery);
+      });
+
+      // Function to fetch tasks based on search query (category)
+      const fetchTasks = (category) => {
+        const url = category
+          ? `/product/searchTasks?category=${category}`
+          : "/product/searchTasks";  
+        fetch(url)
+          .then((res) => res.json())
+          .then((data) => {
+            display(data);  
+          })
+          .catch((error) => console.log(error));
+      };
+
+      // Function to delete task
+      const DeleteTask = (id) => {
+        fetch(`/product/DeleteTask/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            window.location.href = "/user/User";  
+          })
+          .catch((error) => console.log(error));
+      };
+
+      // Function to display tasks
+      const display = (data) => {
+        document.getElementById("box").innerHTML = "";  
+
+        if (data.length === 0) {
+          document.getElementById("box").innerHTML = "<h3>No tasks found for the given category</h3>";
+          return;
+        }
+
+        // Iterate over tasks and create HTML elements
+        data.map((ele) => {
+          let title = document.createElement("h1");
+          title.innerHTML = `Title: ${ele.title}`;
+          let des = document.createElement("h4");
+          des.innerHTML = `Description: ${ele.des}`;
+          let category = document.createElement("h3");
+          category.innerHTML = `Category: ${ele.category}`;
+
+          let btn1 = document.createElement("button");
+          btn1.innerHTML = "Update";
+
+          btn1.addEventListener("click",()=>{
+                document.getElementById("title").value = ele.title
+                document.getElementById("des").value = ele.des
+                document.getElementById("category").value = ele.category
+                document.getElementById("id").value = ele._id
+            
+                
+          });
+
+
+          let btn2 = document.createElement("button");
+          btn2.innerHTML = "Delete";
+
+          // Attach delete functionality to the delete button
+          btn2.addEventListener("click", () => {
+            DeleteTask(ele._id);
+          });
+
+          let div = document.createElement("div");
+          div.setAttribute("class","new");
+          div.append(title, des, category, btn1, btn2);
+          document.getElementById("box").append(div);  
+        });
+      };
+
+     
+      fetchTasks();
+      
+    </script>
+  </body>
+</html>

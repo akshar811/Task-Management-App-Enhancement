@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../signup.css">
+    
+  </head>
+  <body>
+
+    <%-include("navbar") %>
+
+
+   <div class="content">
+    <form id="form" action="/user/signup" method="POST">
+      <div class="signup-div">
+          <div class="field">
+            <input type="text" id="username" name="username" placeholder="Username"  required/>
+          </div>
+          <div class="field">
+            <input type="email" id="email" name="email" placeholder="Email"  required/>
+          </div>
+          <div class="field">
+            <input  type="password" id="password" name="password"  placeholder="Password" required/>
+          </div>
+          
+         <div class="field">
+
+           <select id="role" name="role">
+             <div class="field1">
+              <option value="User">User</option>
+             <option value="Admin">Admin</option>
+             </div>
+           </select>
+         </div>
+         
+          <button type="submit" id="btn">Sign Up</button>
+        
+      </div>
+    </form>
+   </div>
+   
+  </body>
+</html>
+
+
+

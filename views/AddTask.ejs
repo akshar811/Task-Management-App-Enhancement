@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADDTASK PAGE</title>
+    <link rel="stylesheet" href="../signup.css">
+  </head>
+  <body>
+    <%-include("navbar") %>
+
+    <div class="content">
+      <form action="/product/AddTasks" method="post">
+        <div class="field">
+          <input type="text" name="title" placeholder="Title" required />
+        </div>
+        <div class="field">
+          <input type="text" name="des" placeholder="description" required />
+        </div>
+        <div class="field">
+          <input type="text" name="category" placeholder="category" required />
+        </div>
+        <div class="field">
+          <input type="date" name="duedate" placeholder="duedate" required />
+        </div>
+        <div class="field mt">
+          <input type="submit" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+

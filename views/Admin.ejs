@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <%-include("navbar") %>
+
+    <div class="content">
+
+      <h2 class="text">Update Form</h2> <br>
+  
+      <form action="/user/updateAdminTask" method="post">
+  
+        <div class="field">  
+          <input type="text" name="title" id="title" placeholder="Title"  />
+        </div> <br> 
+        <div class="field">
+          <input type="text" name="des" id="des" placeholder="description"  />
+        </div> <br>
+        <div class="field">
+           <input type="text" name="category" id="category" placeholder="category" />
+          </div> <br>
+        <div class="field"> 
+          <input type="text" id="id" name="_id">
+        </div> <br>
+            
+          <input type="submit" id="submit"/>
+        
+      </form>
+  
+     </div>
+
+    <div id="box"></div>
+
+    <script>
+      const DeleteTask = (id) => {
+        fetch(`/product/DeleteTask/${id}`, {
+          method: "delete",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            redirect("/user/User");
+          })
+          .catch((error) => console.log(error));
+      };
+
+      fetch("/product/AdminTaskDisplay")
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+          display(data);
+        });
+
+      const display = (data) => {
+        document.getElementById("box").innerHTML = "";
+        data.map((ele) => {
+          console.log(data);
+          let title = document.createElement("h1");
+          title.innerHTML = `Title : ${ele.title}`;
+          let des = document.createElement("h4");
+          des.innerHTML = `desc : ${ele.des}`;
+          let category = document.createElement("h3");
+          category.innerHTML = `category : ${ele.category}`;
+
+          let checkbox = document.createElement("input");
+          checkbox.setAttribute("class","checkbox");
+          checkbox.type = "checkbox";
+            checkbox.id = ele._id;
+            
+            const savedCheckboxState = localStorage.getItem(ele._id);
+            if (savedCheckboxState === "true") {
+                checkbox.checked = true;
+            }
+
+            checkbox.addEventListener("change", () => {
+                localStorage.setItem(ele._id, checkbox.checked);
+            });
+
+          let btn1 = document.createElement("button");
+          btn1.innerHTML = "Update";
+
+          btn1.addEventListener("click",()=>{
+                document.getElementById("title").value = ele.title
+                document.getElementById("des").value = ele.des
+                document.getElementById("category").value = ele.category
+                document.getElementById("id").value = ele._id
+          });
+
+          let btn2 = document.createElement("button");
+          btn2.innerHTML = "Delete";
+
+          btn2.addEventListener("click", () => {
+            DeleteTask(ele._id);
+          });
+
+          let div = document.createElement("div");
+          div.setAttribute("class","new");
+          div.append(title, des, category,checkbox, btn1, btn2);
+          document.getElementById("box").append(div);
+        });
+      };
+    </script>
+  </body>
+</html>
+

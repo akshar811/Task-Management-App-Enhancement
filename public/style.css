@@ -1,0 +1,56 @@
+.text{
+    margin-top: 25px;
+}
+.content{
+    display: block;
+    margin-left: 600px;
+}
+.content input {
+    padding: 10px 20px;
+}
+#submit{
+    margin-left: 50px;
+}
+.search{
+    margin-left: 1200px;
+}
+.search #searchInput{
+    padding: 10px 20px;
+}
+.search #searchButton {
+    padding: 10px 20px;
+}
+
+.new {
+    width: 400px;
+    border: none;
+    background: #dde1e7;
+    padding: 20px 25px;
+    margin-top: 30px !important;
+    border-radius: 15px;
+    margin-left: 20px;
+   
+} 
+.new h1{
+    font-size: 30px;
+    margin-bottom: 7px;
+}
+.new h4{
+    font-size: 18px;
+    margin-bottom: 7px;
+    margin-left: 3px;
+}
+.new h3{
+    font-size: 18px;
+    margin-bottom: 7px;
+    margin-left: 3px;
+}
+.new button{
+    padding: 10px 25px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.checkbox{
+    width: 20px;
+    height: 20px;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Single Page</title>
+    <style>
+      #blog{
+        margin-top: 60px;
+        margin-left: 400px;
+      }
+      #blog h3{
+        font-size: 22px;
+        margin-bottom: 26px;
+      }
+      #blog p{
+        font-size: 18px;
+        margin-bottom: 26px;
+      }
+      hr{
+        width: 65%;
+        margin: 40px auto;
+      }
+      form{
+        margin-top: 30px !important;
+      }
+      .form-label{
+        padding-top: 100px !important;
+        margin-left: 400px;
+        font-size: 20px;
+      }
+      textarea{
+        margin-left: 400px;
+        margin-top: 15px;
+        width: 30%;
+        height: 30%;
+      }
+      #submit{
+        margin-left: 400px;
+        margin-top: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+      .second{
+        width: 65%;
+        margin: 40px auto;
+      }
+      .row b{
+        margin-left: 400px;
+        margin-top: 5px;
+      }
+      .card-body{
+        margin-left: 400px;
+        margin-top: 5px;
+        border: 1px solid black;
+        display: block;
+        padding: 16px;
+        width: 18%;
+        margin-bottom: 50px;
+      }
+      .card-text{
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include("navbar") %>
+
+    <div id="blog">
+      <h3 id="title">Title :- <%= singleTask.title %></h3>
+      <p id="content">Content :- <%= singleTask.des %></p>
+      <p id="category">category :- <%= singleTask.category %></p>
+      <p><span>Due Date:</span> <%= new Date(singleTask.duedate).toLocaleDateString() %></p>
+    </div>
+    <hr>
+
+    <form action="/product/<%= singleTask._id %>/comment" method="post">
+      <label for="comment" class="form-label">Comments :- </label><br>
+      <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
+          required></textarea><br><br>
+          <input type="submit" name="" id="submit"> <br>
+    </form> <br>
+    <hr class="second">
+
+    <div class="row">
+      <p><b>All reviews :-</b></p> <br>
+      <% for(review of singleTask.reviews) { %>
+      <div class="card col-5 mb-3 ms-3">
+        <div class="card-body">
+          <h5 class="card-title">@ <%= review.author.username %></h5> 
+          <p class="card-text"><%= review.comment %></p>
+        </div>
+        </form>
+      </div>
+      <% } %>
+    </div>
+
+  </body>
+  <script></script>
+</html>
