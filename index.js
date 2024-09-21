@@ -7,9 +7,6 @@ const TaskRoute = require("./routes/task_route");
 const http = require("http");
 const socketio = require("socket.io");
 
-
-
-
 require("dotenv").config();
 
 const app = express();
