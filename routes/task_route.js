@@ -15,6 +15,7 @@ const {
   exportTasksToCSV,
   importTasksFromCSV,
   upload,
+  assignTask,
 } = require("../controllers/Task_controller");
 const { Auth } = require("../middleware/Auth");
 
@@ -40,4 +41,7 @@ TaskRoute.get("/exportTasks", exportTasksToCSV);
 
 TaskRoute.post("/importTasks", upload.single("csvfile"), importTasksFromCSV);
 
+TaskRoute.post('/assign', Auth,assignTask );
+
 module.exports = TaskRoute;
+
