@@ -288,6 +288,36 @@ const importTasksFromCSV = async (req, res) => {
   }
 };
 
+// notification
+
+const assignTask = async (req, res) => {
+  try {
+      const { id, assignedTo } = req.body;
+
+      // Find task and user
+      const task = await Task.findById(id);
+      const user = await User.findById(assignedTo);
+
+      if (!task || !user) {
+          return res.status(404).json({ message: 'Task or User not found' });
+      }
+
+      task.assignedTo = assignedTo;
+      await task.save();
+
+      // Send push notification
+      const message = {
+          title: 'New Task Assigned',
+          body: `You have been assigned to the task: ${task.title}`,
+      };
+      await sendNotification(user.fcmToken, message);
+
+      res.status(200).json({ message: 'Task assigned successfully and notification sent.' });
+  } catch (error) {
+      res.status(500).json({ message: 'Error assigning task', error });
+  }
+};
+
 
 module.exports = {
   Addtask,
@@ -305,4 +335,5 @@ module.exports = {
   exportTasksToCSV,
   importTasksFromCSV,
   upload,
+  assignTask
 };
